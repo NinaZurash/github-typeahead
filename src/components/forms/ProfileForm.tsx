@@ -11,23 +11,25 @@ import {
 } from "../ui/form";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
+import { useMainContext } from "../providers/useMainContext";
 
 const formSchema = z.object({
-  username: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
+  searchValue: z.string().min(2, {
+    message: "value must be at least 2 characters.",
   }),
 });
 
 export function ProfileForm() {
+  const { state, setState } = useMainContext();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
+      searchValue: "",
     },
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+    setState(values.searchValue);
   }
   return (
     <Form {...form}>
@@ -37,12 +39,12 @@ export function ProfileForm() {
       >
         <FormField
           control={form.control}
-          name="username"
+          name="searchValue"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Search Input</FormLabel>
               <FormControl>
-                <Input placeholder="shadcn" {...field} />
+                <Input placeholder={state} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
