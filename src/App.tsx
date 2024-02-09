@@ -4,13 +4,9 @@ import toast from "react-hot-toast";
 import UserSearchResult from "./components/home/UserSearchResult";
 
 export default function App() {
-  const { mutateAsync, data, isPending } = useGithubUsers(
-    () => {},
-    // error
-    () => {
-      toast.error("Number of requests exceeded. Please try again later.");
-    }
-  );
+  const { mutateAsync, data, isPending } = useGithubUsers(() => {
+    toast.error("Number of requests exceeded. Please try again later.");
+  });
 
   return (
     <>
