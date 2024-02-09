@@ -1,25 +1,25 @@
 import { useMutation } from "@tanstack/react-query";
 import { GithubUser } from "./types";
 
-type Data = {
+type GithubUsersList = {
   total_count: number;
   incomplete_results: boolean;
   items: GithubUser[];
 };
 
+const BASE_URL = "https://api.github.com";
+
 export const useGithubUsers = (
-  onSuccess: (data: Data) => void,
+  onSuccess: (list: GithubUsersList) => void,
   onError: () => void
 ) => {
   return useMutation({
     mutationFn: async (payload: { username: string }) => {
-      const res = await fetch(
-        "https://api.github.com/search/users?q=" + payload.username
-      );
+      const res = await fetch(`${BASE_URL}/search/users?q=` + payload.username);
       return res.json();
     },
-    onSuccess(data: Data) {
-      onSuccess(data);
+    onSuccess(list: GithubUsersList) {
+      onSuccess(list);
     },
     onError() {
       onError();

@@ -2,14 +2,17 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-
-export const queryClient = new QueryClient();
+import QueryProvider from "./provider/QueryProvider.tsx";
+import { Toaster } from "react-hot-toast";
+import ErrorBoundary from "./error/ErrorBoundary.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <QueryClientProvider client={queryClient}>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
-  </QueryClientProvider>
+  <React.StrictMode>
+    <ErrorBoundary>
+      <QueryProvider>
+        <App />
+        <Toaster />
+      </QueryProvider>
+    </ErrorBoundary>
+  </React.StrictMode>
 );
