@@ -1,17 +1,38 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ProfileForm } from "./components/forms/ProfileForm";
-import { MyProvider } from "./components/providers/Provider";
+import { useEffect, useState } from "react";
 import { UserSearchResults } from "./components/utils/queryClient";
-
-const queryClient = new QueryClient();
+import { useGithubUsers } from "./service/github";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function App() {
+  const [searchInput, setSearchInput] = useState("");
+  const {
+    mutate: searchUsers,
+    data,
+    isPending,
+  } = useGithubUsers(
+    (data) => {
+      data.items.length === 0 && toast.error("No results found");
+    },
+    () => {
+      toast.error("Number of requests exceeded. Please try again later.");
+    }
+  );
+  useEffect(() => {
+    if (searchInput.trim() !== "") {
+      searchUsers({ username: searchInput });
+    }
+  }, [searchInput, searchUsers]);
   return (
-    <MyProvider>
-      <QueryClientProvider client={queryClient}>
-        <ProfileForm />
-        <UserSearchResults />
-      </QueryClientProvider>
-    </MyProvider>
+    <div>
+      <ProfileForm
+        handleOnChange={(newValue: string) => {
+          setSearchInput(newValue);
+        }}
+      />
+      {isPending && <div className="text-green-500 ml-4">Loading...</div>}
+      {data && <UserSearchResults data={data.items} />}
+      <Toaster />
+    </div>
   );
 }
