@@ -7,7 +7,7 @@ export function UserSearchResults({ data }: { data: GithubUser[] }) {
         <div className="border-t p-2  border-zinc-200" key={index}>
           {Object.keys(item).map((key: string, index: number) => (
             <div key={index}>
-              <strong>{key}</strong> {item[key]}
+              <strong>{key}</strong> {item[key as keyof GithubUser]}
             </div>
           ))}
         </div>
