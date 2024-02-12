@@ -25,7 +25,7 @@ export default function UserSearchResult({ data }: { data: GithubUser[] }) {
         </div>
       ) : (
         <>
-          {data.slice(0, 5).map((item: GithubUser, index: number) => (
+          {data.map((item: GithubUser, index: number) => (
             <UserCard key={index} data={item} />
           ))}
         </>
