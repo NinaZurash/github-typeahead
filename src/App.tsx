@@ -3,6 +3,7 @@ import { useGithubUsers } from "./service/github";
 import toast from "react-hot-toast";
 import UserSearchResult from "./components/home/UserSearchResult";
 import { useRef } from "react";
+import Spinner from "./components/shared/Spinner";
 
 export default function App() {
   const debouncingRef = useRef<NodeJS.Timeout>();
@@ -22,7 +23,7 @@ export default function App() {
     <>
       <ProfileForm handleOnChange={handleSearchInput} />
       {data?.items && <UserSearchResult data={data.items} />}
-      {isPending && <div className="text-green-500 ml-4">Loading...</div>}
+      {isPending && <Spinner />}
     </>
   );
 }

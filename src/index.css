@@ -77,3 +77,7 @@
 body {
   background-color: #121212;
 }
+
+.bg-radial-gradient {
+  background-image: radial-gradient(farthest-side, #000 90%, #0000);
+}
