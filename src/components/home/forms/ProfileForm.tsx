@@ -11,7 +11,7 @@ export function ProfileForm({ handleOnChange }: Props) {
 
   return (
     <Input
-      className="justify-center space-y-8 w-100 mx-auto mt-14 mb-6"
+      className="justify-center h-16 space-y-8 w-200 mx-auto mt-40 mb-6"
       placeholder="enter text"
       onChange={handleChange}
     />
