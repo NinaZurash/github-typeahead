@@ -3,7 +3,7 @@ import UserCard from "./UserCard";
 
 export default function UserSearchResult({ data }: { data: GithubUser[] }) {
   return (
-    <div className="flex gap-4 flex-wrap justify-center items-center text-gray-400  mt-3">
+    <div className="flex gap-8 flex-wrap justify-center items-center text-gray-400  mt-20">
       {data.length < 1 ? (
         <div className="mt-24 flex gap-x-2">
           <h1>No results found... </h1>
