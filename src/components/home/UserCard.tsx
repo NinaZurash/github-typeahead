@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import { GithubUser } from "@/service/types";
 
 type Props = {
@@ -6,18 +8,13 @@ type Props = {
 
 export default function UserCard({ data }: Props) {
   return (
-    <div className="p-2  border border-solid hover:border-cyan-600 hover:cursor-pointer">
-      {Object.keys(data).map((key: string, index: number) =>
-        key === "id" ? (
-          <div key={index}>
-            <strong>{key}</strong> {data[key as keyof GithubUser]}
-          </div>
-        ) : key === "avatar_url" ? (
-          <div key={index}>
-            <img className="w-36 p-3" src={data["avatar_url"]} alt="Avatar" />
-          </div>
-        ) : null
-      )}
-    </div>
+    <Link to={`/user/${data.id}`}>
+      <div className="border  border-solid p-2 hover:cursor-pointer hover:border-cyan-600">
+        <div className="space-x-2">
+          <strong>id</strong> <span>{data.id}</span>
+        </div>
+        <img className="block w-36 p-3" src={data.avatar_url} alt="Avatar" />
+      </div>
+    </Link>
   );
 }

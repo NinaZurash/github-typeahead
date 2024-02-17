@@ -19,3 +19,9 @@ export type GithubUser = {
   site_admin: boolean;
   score: number;
 };
+
+export type GithubUserSearchResponse = {
+  total_count: number;
+  incomplete_results: boolean;
+  items: GithubUser[];
+};
