@@ -7,13 +7,13 @@ import { GithubUser } from "@/service/types";
 import UserCard from "./UserCard";
 
 export default function UserSearchResult() {
-  const { users } = useUser();
+  const { users, usersLimit } = useUser();
   let content;
 
   if (users == undefined) return <></>;
   if (users.length > 0) {
     content = users
-      .slice(0, 5)
+      .slice(0, parseInt(usersLimit))
       .map((item: GithubUser) => <UserCard key={item.id} data={item} />);
   } else {
     content = (

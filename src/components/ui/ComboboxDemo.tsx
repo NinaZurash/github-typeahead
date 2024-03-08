@@ -1,5 +1,7 @@
 "use client";
 
+import { UsersLimit, useUser } from "@/provider/UserProvider";
+
 import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
 import { useState } from "react";
 
@@ -8,11 +10,11 @@ import { Button } from "@/components/ui/button";
 import { Command, CommandGroup, CommandItem } from "@/components/ui/command";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
-const frameworks = ["5", "10", "15", "20"];
+const frameworks = ["5", "10", "15", "20"] as UsersLimit[];
 
 export default function ComboboxDemo() {
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState("10");
+  const { usersLimit, setUsersLimit } = useUser();
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -23,7 +25,7 @@ export default function ComboboxDemo() {
           aria-expanded={open}
           className="w-[100px] justify-between"
         >
-          {value}
+          {usersLimit}
           <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
@@ -35,7 +37,7 @@ export default function ComboboxDemo() {
                 key={element}
                 value={element}
                 onSelect={(currentValue) => {
-                  setValue(currentValue);
+                  setUsersLimit(currentValue as UsersLimit);
                   setOpen(false);
                 }}
               >
@@ -43,7 +45,7 @@ export default function ComboboxDemo() {
                 <CheckIcon
                   className={cn(
                     "ml-auto h-4 w-4",
-                    element === value ? "opacity-100" : "opacity-0",
+                    element === usersLimit ? "opacity-100" : "opacity-0",
                   )}
                 />
               </CommandItem>
